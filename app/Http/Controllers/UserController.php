@@ -7,15 +7,16 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-
-use App\Providers\RouteServiceProvider;
-
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Validation\Rules;
 
 use App\DataTables\UsersDataTable;
+
+use Illuminate\Support\Facades\DB;
+
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
+use Illuminate\Http\RedirectResponse;
+use App\Providers\RouteServiceProvider;
 
 
 class UserController extends Controller
@@ -92,9 +93,30 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $users)
     {
-        //
+        $request->validate([
+            'username' => 'required',
+            'fullname' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+            'address' => 'required',
+            'birthdate' => 'required|date',
+            'phoneNumber' => 'required',
+            'agama' => 'required',
+            'jenisKelamin' => 'required|in:0,1',
+        ]);
+        
+        
+        $affacted = DB::table('users')->where('id', $request->id)->update([
+            'fullname' => $request->fullname, //Aman
+            'password' => Hash::make($request->password),
+            'address' => $request->address, 
+            'phoneNumber' => $request->phoneNumber, 
+        ]
+        );
+        // Redirect ke halaman yang sesuai, misalnya, halaman daftar koleksi
+        return redirect()->route('user.daftarPengguna')->with('success', 'Pengguna berhasil diperbarui.');
     }
 
     /**

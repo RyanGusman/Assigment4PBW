@@ -10,7 +10,8 @@
 
 @section('content')
 <div class="container">
-    <div class="card dark:bg-gray-800 text-white">
+    <div class="card dark:bg-gray-800 text-white">\
+        
         <div class="card-header dark:bg-gray-700">Manage Users
         </div>
         <div class="flex justify-end card-header text-white dark:bg-gray-900">

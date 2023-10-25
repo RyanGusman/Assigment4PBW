@@ -8,6 +8,7 @@ namespace App\Http\Controllers;
 use App\Models\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\DB;
 use App\DataTables\CollectionsDataTable;
 
 class CollectionController extends Controller
@@ -88,9 +89,24 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Collection $collections) //controller buat edit
     {
-        //
+    $request->validate([
+        'namaKoleksi' => 'required',
+        'jenisKoleksi' => 'required|in:1,2,3',
+        'jumlahKoleksi' => 'required|numeric',
+    ]);
+    
+    // Perbarui data koleksi dengan data yang dikirimkan dari formulir
+    
+    $affacted = DB::table('collections')->where('id', $request->id)->update([
+        'namaKoleksi' => $request->namaKoleksi,
+        'jenisKoleksi' => $request->jenisKoleksi,
+        'jumlahKoleksi' => $request->jumlahKoleksi,
+    ]
+    );
+    // Redirect ke halaman yang sesuai, misalnya, halaman daftar koleksi
+    return redirect()->route('koleksi.daftarKoleksi')->with('success', 'Koleksi berhasil diperbarui.');
     }
 
     /**

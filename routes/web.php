@@ -41,6 +41,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/koleksiTambah', [CollectionController::class, 'create'])->name('koleksi.registrasi');
     Route::post('/koleksiStore', [CollectionController::class, 'store'])->name('koleksi.storeKoleksi');
     Route::get('/koleksiView/{collection}', [CollectionController::class, 'show'])->name('koleksi.infoKoleksi');
+
+    // Koleksi Update
+    Route::put('/koleksiUpdate', [CollectionController::class, 'update'])->name('koleksi.update');
+
+    // 
+    Route::put('/UserUpdate', [UserController::class, 'update'])->name('user.update');
+
 });
 
 require __DIR__.'/auth.php';

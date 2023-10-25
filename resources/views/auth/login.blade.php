@@ -1,4 +1,4 @@
-{{-- AHMAD FAZA AL FARISI (6706220050) --}}
+{{-- Ryan Gusman Yoel Banjarnahor 6706220098 --}}
 
 <x-guest-layout>
     <!-- Session Status -->
